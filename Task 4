@@ -1,0 +1,15 @@
+$sql = "SELECT b.book_name as `book name` , CONCAT(a.first_name , ' ' , a.last_name) as 'author name' , b.publish_date as `publish date` FROM books b
+ INNER JOIN authors a ON a.id = b.author_id
+ WHERE DATE_FORMAT( b.publish_date, '%M %Y' ) = 'January 2021' ";
+
+    $result = mysql_query($sql);
+
+    if ($result && mysql_num_rows($result) > 0) {
+    
+        while ($rows = mysql_fetch_assoc($result)) {
+        
+            echo $rows['book name'] . " - " . $rows['author name'];
+        }
+    }else{
+        http_response_code(404);
+    }
